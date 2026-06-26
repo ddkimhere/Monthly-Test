@@ -210,8 +210,8 @@
                     <i class="fa-solid fa-gears"></i> 실시간 시험 문제 빌더 & 문항수 맞춤 관리 도구
                 </h2>
                 <div class="flex gap-2">
-                    <button onclick="generateAIQuestionsAllPassages()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3 py-1.5 rounded transition flex items-center gap-1">
-                        <i class="fa-solid fa-wand-magic-sparkles text-amber-300"></i> 전체 지문 AI 문제 일괄 출제
+                    <button onclick="generateAIQuestionsAllPassages()" class="bg-indigo-650 hover:bg-indigo-600 border border-indigo-500/50 text-white text-xs font-bold px-3 py-1.5 rounded transition flex items-center gap-1">
+                        <i class="fa-solid fa-wand-magic-sparkles text-amber-300 animate-pulse"></i> 전체 지문 AI 문제 일괄 출제
                     </button>
                 </div>
             </div>
@@ -270,7 +270,7 @@
                     <label class="block text-slate-400 font-medium mb-1">인쇄 일자</label>
                     <input type="text" id="config-date" value="2026. 06" oninput="syncHeaderData()" class="w-full bg-slate-800 border border-slate-700 rounded px-2.5 py-1.5 text-white">
                 </div>
-                <!-- Secure API Key Input Field (Stores locally and safely) -->
+                <!-- Secure API Key Input Field -->
                 <div>
                     <label class="block text-slate-400 font-medium mb-1 flex items-center justify-between">
                         <span class="text-indigo-400 font-bold"><i class="fa-solid fa-key mr-1 text-amber-400"></i> Gemini API Key 설정 (선택)</span>
@@ -295,7 +295,6 @@
                 <div id="panel-vocab" class="editor-panel space-y-2">
                     <p class="text-xs text-slate-400 leading-relaxed">
                         엑셀(Excel)에서 영어 열과 뜻 열을 각각 복사해서 아래의 해당 입력칸에 따로따로 붙여넣으실 수 있습니다.
-                        <span class="text-amber-400 font-bold block mt-1"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i>꿀기능: 엑셀에서 '영어'와 '뜻' 두 열을 한 번에 복사해서 왼쪽 "영어 단어 목록" 칸에 바로 붙여넣으면 자동으로 각각 분류되어 채워집니다!</span>
                     </p>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
                         <div>
@@ -309,15 +308,25 @@
                     </div>
                     <div class="flex justify-between items-center pt-1">
                         <span class="text-[10px] text-slate-500">지정한 문항 수에 맞게 상위 행부터 순서대로 출제됩니다.</span>
-                        <button onclick="applyVocabChange()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-1.5 rounded transition">단어 데이터 반영</button>
+                        <div class="flex gap-2">
+                            <button onclick="generateAIVocab()" class="bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold px-3 py-1.5 rounded transition flex items-center gap-1 shadow-md">
+                                <i class="fa-solid fa-wand-magic-sparkles text-amber-300"></i> 🪄 AI 단어장 새로 생성
+                            </button>
+                            <button onclick="applyVocabChange()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-1.5 rounded transition">단어 데이터 반영</button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Reading Editor Panel -->
                 <div id="panel-reading" class="editor-panel hidden space-y-4">
-                    <div class="bg-slate-950/60 p-3 rounded-lg border border-slate-850 space-y-1 text-xs">
-                        <p class="font-bold text-indigo-400 flex items-center gap-1.5"><i class="fa-solid fa-lightbulb"></i> 지문별 수동 입력 & AI 스마트 문제 출제 결합 시스템</p>
-                        <p class="text-[11px] text-slate-400">선생님들이 원하시는 지문을 직접 적거나 붙여넣으신 후, 오른쪽에 위치한 <strong class="text-amber-400">🪄 AI 문제 출제</strong> 버튼을 누르면 AI가 제목, 요지, 일치/불일치, 추론, 지칭, 서술형, 어순배열 유형 중 3문제를 자동 생성합니다.</p>
+                    <div class="bg-slate-950/60 p-3 rounded-lg border border-slate-850 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs">
+                        <div class="space-y-1">
+                            <p class="font-bold text-indigo-400 flex items-center gap-1.5"><i class="fa-solid fa-lightbulb"></i> 지문별 수동 입력 & AI 스마트 문제 출제 결합 시스템</p>
+                            <p class="text-[11px] text-slate-400">선생님이 지문을 변경하면 AI가 지문의 난이도를 분석해 8개 핵심 유형 중 지문에 가장 부합하는 고품질 문제 3가지를 자동 출제합니다.</p>
+                        </div>
+                        <button onclick="generateAIReadingPassages()" class="bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold px-3.5 py-2 rounded-lg transition flex items-center gap-1 shadow-md shrink-0">
+                            <i class="fa-solid fa-wand-magic-sparkles text-amber-300"></i> 🪄 지문+문제 AI 전체 새로 생성
+                        </button>
                     </div>
                     <div id="reading-editor-list" class="space-y-4 max-h-96 overflow-y-auto pr-2">
                         <!-- Generated Dynamically -->
@@ -333,7 +342,12 @@
                     <textarea id="edit-translation" rows="6" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 font-mono text-xs text-emerald-400 focus:outline-none"></textarea>
                     <div class="flex justify-between items-center pt-1">
                         <span class="text-[10px] text-slate-500">지정한 영한해석 문항 수에 맞게 상위 행부터 적용됩니다.</span>
-                        <button onclick="applyTranslationChange()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-1.5 rounded transition">영한해석 데이터 반영</button>
+                        <div class="flex gap-2">
+                            <button onclick="generateAITranslation()" class="bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold px-3 py-1.5 rounded transition flex items-center gap-1 shadow-md">
+                                <i class="fa-solid fa-wand-magic-sparkles text-amber-300"></i> 🪄 AI 해석문 자동 생성
+                            </button>
+                            <button onclick="applyTranslationChange()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-1.5 rounded transition">영한해석 데이터 반영</button>
+                        </div>
                     </div>
                 </div>
 
@@ -343,7 +357,12 @@
                     <textarea id="edit-unscramble" rows="6" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 font-mono text-xs text-emerald-400 focus:outline-none"></textarea>
                     <div class="flex justify-between items-center pt-1">
                         <span class="text-[10px] text-slate-500">인쇄 시 핵심 단어 카드들이 알아서 임의로 흐트러져 시험지에 표시됩니다.</span>
-                        <button onclick="applyUnscrambleChange()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-1.5 rounded transition">어순배열 데이터 반영</button>
+                        <div class="flex gap-2">
+                            <button onclick="generateAIUnscramble()" class="bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold px-3 py-1.5 rounded transition flex items-center gap-1 shadow-md">
+                                <i class="fa-solid fa-wand-magic-sparkles text-amber-300"></i> 🪄 AI 배열문 자동 생성
+                            </button>
+                            <button onclick="applyUnscrambleChange()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-1.5 rounded transition">어순배열 데이터 반영</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -728,6 +747,13 @@
             const defaults = ["⭐", "✏️", "🎈", "🌟", "🍀", "🎨"];
             const hash = w.length + m.length;
             return defaults[hash % defaults.length];
+        }
+
+        // Helper to get Korean level text name
+        function getLevelName() {
+            if (currentLevel === 'elementary_junior') return "초등 저학년(2~4학년)";
+            if (currentLevel === 'elementary') return "초등 고학년(5~6학년)";
+            return "중등부";
         }
 
         // Multi-level Demo Dataset Model (Junior, Elementary & Middle)
@@ -1869,10 +1895,276 @@
         }
 
         // -------------------------------------------------------------------------
-        // GEMINI AI INTEGRATED QUESTION GENERATOR (TAILORED FOR TEACHERS' PASSAGES)
+        // GEMINI AI INTEGRATED QUESTION GENERATORS (ROBUST STRUCTURAL SHEETS ENGINE)
         // -------------------------------------------------------------------------
-        
-        // 1. Generate questions for a SINGLE PASSAGE based on its index
+
+        // 1. AI Vocab Generator
+        async function generateAIVocab() {
+            const overlay = document.getElementById('ai-loading-overlay');
+            const stepText = document.getElementById('ai-loading-step');
+            overlay.classList.remove('hidden');
+            stepText.innerText = `[${getLevelName()}] 수준의 어휘 및 한국어 뜻 생성 중...`;
+
+            const prompt = `영어 어휘 평가용 단어 세트 생성 요청:
+            대상 레벨: ${getLevelName()}
+            필요 단어 수: ${vocabCount}개
+            조건: 해당 대상 학생들에게 적합한 필수/핵심 단어로 영어(word)와 한국어 뜻(mean)을 생성하세요. 무작위로 다양하게 생성해야 합니다.`;
+
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                systemInstruction: { parts: [{ text: "너는 수준별 최적의 영단어 사전을 설계하는 어휘 전문가야. 중복되지 않고 난이도에 알맞은 참신한 단어와 정확한 뜻을 JSON 객체 형식으로 생성해줘." }] },
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            vocab: {
+                                type: "ARRAY",
+                                items: {
+                                    type: "OBJECT",
+                                    properties: {
+                                        word: { type: "STRING" },
+                                        mean: { type: "STRING" }
+                                    },
+                                    required: ["word", "mean"]
+                                }
+                            }
+                        },
+                        required: ["vocab"]
+                    }
+                }
+            };
+
+            const result = await makeGeminiCallWithRetry(payload, stepText, "단어 목록 정제 중...");
+            overlay.classList.add('hidden');
+
+            if (result) {
+                try {
+                    const parsed = parseJsonSafely(result);
+                    if (parsed && parsed.vocab) {
+                        examData.vocab = parsed.vocab;
+                        initializeEditorInputs();
+                        syncHeaderData();
+                        renderPaperPreview();
+                        showToast(`🪄 ${vocabCount}개의 AI 추천 단어가 새롭게 생성되었습니다.`);
+                    } else {
+                        throw new Error("Invalid Output format");
+                    }
+                } catch (e) {
+                    openModal("단어 생성 오류", "AI 단어장 파싱에 실패했습니다. 다시 시도해 주세요.");
+                }
+            } else {
+                openModal("AI 통신 실패", "AI 문제 생성기 호출에 실패했습니다. API Key를 확인하시거나 네트워크 상태를 점검한 후 다시 시도해 주세요.");
+            }
+        }
+
+        // 2. AI Translation Generator
+        async function generateAITranslation() {
+            const overlay = document.getElementById('ai-loading-overlay');
+            const stepText = document.getElementById('ai-loading-step');
+            overlay.classList.remove('hidden');
+            stepText.innerText = `[${getLevelName()}] 수준의 번역용 문장 및 한글 해석 생성 중...`;
+
+            const prompt = `영한해석 평가용 문장 세트 생성 요청:
+            대상 레벨: ${getLevelName()}
+            필요 문장 수: ${translationCount}개
+            조건: 학습 수준에 맞고 유용한 구문/표현이 포함된 완성도 높은 새로운 영어 문장(eng)과 자연스러운 한국어 해석 번역(kor)을 만드세요.`;
+
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                systemInstruction: { parts: [{ text: "너는 영한 번역 평가용 고급 예문을 설계하는 구문 전문가야. 어법상 오류가 없고 어휘 수준에 최적화된 새로운 영어 문장과 매끄러운 한글 번역 세트를 JSON 객체 형식으로 생성해줘." }] },
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            translation: {
+                                type: "ARRAY",
+                                items: {
+                                    type: "OBJECT",
+                                    properties: {
+                                        eng: { type: "STRING" },
+                                        kor: { type: "STRING" }
+                                    },
+                                    required: ["eng", "kor"]
+                                }
+                            }
+                        },
+                        required: ["translation"]
+                    }
+                }
+            };
+
+            const result = await makeGeminiCallWithRetry(payload, stepText, "해석 문장 다듬는 중...");
+            overlay.classList.add('hidden');
+
+            if (result) {
+                try {
+                    const parsed = parseJsonSafely(result);
+                    if (parsed && parsed.translation) {
+                        examData.translation = parsed.translation;
+                        initializeEditorInputs();
+                        syncHeaderData();
+                        renderPaperPreview();
+                        showToast(`🪄 ${translationCount}개의 AI 추천 해석 문장들이 새롭게 생성되었습니다.`);
+                    } else {
+                        throw new Error("Invalid Output format");
+                    }
+                } catch (e) {
+                    openModal("해석 생성 오류", "AI 해석 예문 파싱에 실패했습니다. 다시 시도해 주세요.");
+                }
+            } else {
+                openModal("AI 통신 실패", "AI 문제 생성기 호출에 실패했습니다. API Key를 확인하시거나 네트워크 상태를 점검한 후 다시 시도해 주세요.");
+            }
+        }
+
+        // 3. AI Unscramble Generator
+        async function generateAIUnscramble() {
+            const overlay = document.getElementById('ai-loading-overlay');
+            const stepText = document.getElementById('ai-loading-step');
+            overlay.classList.remove('hidden');
+            stepText.innerText = `[${getLevelName()}] 수준의 영작/어순배열용 영어 문장 및 한국어 힌트 생성 중...`;
+
+            const prompt = `어순배열 평가용 문장 세트 생성 요청:
+            대상 레벨: ${getLevelName()}
+            필요 문장 수: ${unscrambleCount}개
+            조건: 핵심 문법 요소가 담긴 새로운 영어 문장(eng)과 문장을 유추할 수 있는 명료한 한글 뜻 힌트(kor)를 만드세요.`;
+
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                systemInstruction: { parts: [{ text: "너는 영어 서술형 어순배열 평가 예문을 설계하는 서술형 영작 전문가야. 영작 조건에 맞고 난이도에 최적화된 새로운 영어 원형 문장과 명료한 한글 힌트 세트를 JSON 객체 형식으로 생성해줘." }] },
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            unscramble: {
+                                type: "ARRAY",
+                                items: {
+                                    type: "OBJECT",
+                                    properties: {
+                                        eng: { type: "STRING" },
+                                        kor: { type: "STRING" }
+                                    },
+                                    required: ["eng", "kor"]
+                                }
+                            }
+                        },
+                        required: ["unscramble"]
+                    }
+                }
+            };
+
+            const result = await makeGeminiCallWithRetry(payload, stepText, "배열 문장 정렬 중...");
+            overlay.classList.add('hidden');
+
+            if (result) {
+                try {
+                    const parsed = parseJsonSafely(result);
+                    if (parsed && parsed.unscramble) {
+                        examData.unscramble = parsed.unscramble;
+                        initializeEditorInputs();
+                        syncHeaderData();
+                        renderPaperPreview();
+                        showToast(`🪄 ${unscrambleCount}개의 AI 추천 영작/배열 문장들이 새롭게 생성되었습니다.`);
+                    } else {
+                        throw new Error("Invalid Output format");
+                    }
+                } catch (e) {
+                    openModal("배열 생성 오류", "AI 배열 문항 파싱에 실패했습니다. 다시 시도해 주세요.");
+                }
+            } else {
+                openModal("AI 통신 실패", "AI 문제 생성기 호출에 실패했습니다. API Key를 확인하시거나 네트워크 상태를 점검한 후 다시 시도해 주세요.");
+            }
+        }
+
+        // 4. AI Reading Passage + Questions Generator (지문 자체를 AI가 통째로 새로 만드는 기능)
+        async function generateAIReadingPassages() {
+            const overlay = document.getElementById('ai-loading-overlay');
+            const stepText = document.getElementById('ai-loading-step');
+            overlay.classList.remove('hidden');
+            stepText.innerText = `[${getLevelName()}] 수준에 매칭되는 ${readingCount}개 지문 및 문항 일괄 생성 중...`;
+
+            const prompt = `영어 독해 평가 시스템 일괄 출제 요청:
+            대상 레벨: ${getLevelName()}
+            필요 지문 수: ${readingCount}개 (각 지문당 3개씩 문제 구성)
+            조건: 대상 학생 수준에 적절하고 흥미로운 주제(과학, 문화, 역사, 사회, 교훈적 일화 등)의 독해 지문들을 완전히 새로 창작하고, 각 지문마다 아래 8개 평가유형 중 3개를 무작위 조합해 출제하세요.
+            [유형: 제목, 요지, 내용일치, 내용불일치, 추론, 대명사지칭, 서술, 배열]`;
+
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                systemInstruction: { parts: [{ text: "너는 수능 및 내신 기출 평가지를 설계하는 일류 영어 교수진이야. 오류가 일절 없는 참신한 새로운 지문과 정합성 높은 문제를 JSON 구조로 완벽히 출제해줘." }] },
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            reading: {
+                                type: "ARRAY",
+                                items: {
+                                    type: "OBJECT",
+                                    properties: {
+                                        passage: { type: "STRING" },
+                                        questions: {
+                                            type: "ARRAY",
+                                            items: {
+                                                type: "OBJECT",
+                                                properties: {
+                                                    q: { type: "STRING" },
+                                                    type: { type: "STRING", enum: ["mcq", "descriptive", "unscramble"] },
+                                                    questionCategory: { type: "STRING", enum: ["제목", "요지", "내용일치", "내용불일치", "추론", "대명사지칭", "서술", "배열"] },
+                                                    choices: {
+                                                        type: "ARRAY",
+                                                        items: { type: "STRING" }
+                                                    },
+                                                    answer: { type: "INTEGER" },
+                                                    answerText: { type: "STRING" },
+                                                    shuffledWords: {
+                                                        type: "ARRAY",
+                                                        items: { type: "STRING" }
+                                                    }
+                                                },
+                                                required: ["q", "type", "questionCategory", "choices", "answer", "answerText", "shuffledWords"]
+                                            }
+                                        }
+                                    },
+                                    required: ["passage", "questions"]
+                                }
+                            }
+                        },
+                        required: ["reading"]
+                    }
+                }
+            };
+
+            const result = await makeGeminiCallWithRetry(payload, stepText, "지문 및 문항 일괄 조립 중...");
+            overlay.classList.add('hidden');
+
+            if (result) {
+                try {
+                    const parsed = parseJsonSafely(result);
+                    if (parsed && parsed.reading) {
+                        const sanitizedReading = parsed.reading.slice(0, readingCount).map(item => ({
+                            passage: item.passage,
+                            questions: sanitizeReadingQuestions(item.questions)
+                        }));
+                        examData.reading = sanitizedReading;
+                        initializeEditorInputs();
+                        syncHeaderData();
+                        renderPaperPreview();
+                        showToast(`🪄 ${readingCount}개의 AI 지문 및 맞춤 문항 출제가 완료되었습니다.`);
+                    } else {
+                        throw new Error("Invalid Output format");
+                    }
+                } catch (e) {
+                    openModal("독해 생성 오류", "AI 지문 파싱에 실패했습니다. 다시 시도해 주세요.");
+                }
+            } else {
+                openModal("AI 통신 실패", "AI 문제 생성기 호출에 실패했습니다. API Key를 확인하시거나 네트워크 상태를 점검한 후 다시 시도해 주세요.");
+            }
+        }
+
+        // 5. Generate questions for a SINGLE PASSAGE based on its index
         async function generateAIQuestionsForPassage(pIdx) {
             const passageEl = document.getElementById(`edit-passage-${pIdx}`);
             if (!passageEl) return;
@@ -1887,9 +2179,7 @@
             const stepText = document.getElementById('ai-loading-step');
             overlay.classList.remove('hidden');
             
-            let koreanLevelName = currentLevel === 'elementary_junior' ? "초등 저학년(2~4학년)" : 
-                                  currentLevel === 'elementary' ? "초등 고학년(5~6학년)" : "중등부";
-
+            let koreanLevelName = getLevelName();
             stepText.innerText = `지문 ${pIdx+1} 분석 및 8개 유형 매칭 분석 중...`;
 
             const prompt = `영어 독해 지문 기반 맞춤형 시험 문제 출제 의뢰:
@@ -1901,48 +2191,40 @@
 
 문제 조건:
 1. 질문 텍스트는 한국어로 명료하게 작성해 주세요.
-2. "choices" 배열은 반드시 각각의 보기가 독립된 원소로 들어있는 크기가 정확히 5인 JSON 배열이어야 합니다 (예: ["보기1", "보기2", "보기3", "보기4", "보기5"]). 절대로 단일 문자열 안에 괄호나 기호(|, <, >)를 넣어 하나로 합치지 마세요.
-3. 각 문제는 아래 JSON 스키마 형식에 맞춰 정확한 JSON 배열 형태로만 반환하세요. 마크다운 기호 없이 순수 JSON만 필요합니다.
-
-문제 유형별 스키마 세부 사항:
-- 객관식 유형 (제목, 요지, 내용일치, 내용불일치, 추론, 대명사지칭):
-  - "type" 필드는 "mcq"로 지정.
-  - "choices" 배열은 반드시 한글 선택지 5개를 정밀하게 채울 것.
-  - "answer" 필드는 정답 번호 (1~5 정수 값) 기입.
-  - "answerText"와 "shuffledWords"는 빈 필드로 둘 것.
-- 서술형 유형 (서술):
-  - "type" 필드는 "descriptive"로 지정.
-  - "choices" 배열은 빈 배열 [] 지정.
-  - "answer"는 null로 지정.
-  - "answerText" 필드에 교사용 정답 예시 힌트 텍스트 기입.
-- 어순배열형 유형 (배열):
-  - "type" 필드는 "unscramble"로 지정.
-  - "choices" 배열은 빈 배열 [] 지정.
-  - "answer"는 null로 지정.
-  - "answerText" 필드에 올바른 정답 문장 기입.
-  - "shuffledWords" 배열에 어순 배열에 사용할 단어 리스트들을 채워줄 것 (예: ["Mimi", "opens", "her", "eyes"]).
-
-스키마:
-[{
-  "q": "질문 내용",
-  "type": "mcq" | "descriptive" | "unscramble",
-  "questionCategory": "제목" | "요지" | "내용일치" | "내용불일치" | "추론" | "대명사지칭" | "서술" | "배열",
-  "choices": ["선택지1", "선택지2", "선택지3", "선택지4", "선택지5"],
-  "answer": 1,
-  "answerText": "정답 혹은 정답문장 예시",
-  "shuffledWords": ["단어1", "단어2", "단어3"]
-}]`;
+2. "choices" 배열은 반드시 각각의 보기가 독립된 원소로 들어있는 크기가 정확히 5인 JSON 배열이어야 합니다 (예: ["보기1", "보기2", "보기3", "보기4", "보기5"]).
+3. 각 문제는 아래 JSON 스키마 형식에 맞춰 정확한 JSON 배열 형태로만 반환하세요.`;
 
             const payload = {
                 contents: [{ parts: [{ text: prompt }] }],
                 systemInstruction: { parts: [{ text: "너는 영미권 수능 및 내신 기출문제를 전문적으로 설계하는 정교한 영어 시험 출제 위원이야. 선생님이 제공한 지문에 딱 부합하며, 한치의 오류도 없는 최고의 퀄리티 문항을 지정된 JSON 구조로 완벽히 리턴해야해." }] },
                 generationConfig: {
-                    responseMimeType: "application/json"
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "ARRAY",
+                        items: {
+                            type: "OBJECT",
+                            properties: {
+                                q: { type: "STRING" },
+                                type: { type: "STRING", enum: ["mcq", "descriptive", "unscramble"] },
+                                questionCategory: { type: "STRING", enum: ["제목", "요지", "내용일치", "내용불일치", "추론", "대명사지칭", "서술", "배열"] },
+                                choices: {
+                                    type: "ARRAY",
+                                    items: { type: "STRING" }
+                                },
+                                answer: { type: "INTEGER" },
+                                answerText: { type: "STRING" },
+                                shuffledWords: {
+                                    type: "ARRAY",
+                                    items: { type: "STRING" }
+                                }
+                            },
+                            required: ["q", "type", "questionCategory", "choices", "answer", "answerText", "shuffledWords"]
+                        }
+                    }
                 }
             };
 
             const result = await makeGeminiCallWithRetry(payload, stepText, "지문 분석 완료! 3문항 수작업 가다듬는 중...");
-            
             overlay.classList.add('hidden');
 
             if (result) {
@@ -1965,10 +2247,12 @@
                     console.error(e);
                     openModal("문항 해석 오류", "AI가 생성한 데이터를 포맷팅하는 데 실패했습니다. 다시 한 번 버튼을 눌러 출제해 주세요.");
                 }
+            } else {
+                openModal("AI 통신 실패", "AI 문제 생성기 호출에 실패했습니다. API Key를 확인하시거나 네트워크 상태를 점검한 후 다시 시도해 주세요.");
             }
         }
 
-        // 2. Generate questions for ALL PASSAGES simultaneously
+        // 6. Generate questions for ALL PASSAGES simultaneously (기존 수동 입력 지문 연동형 일괄 생성)
         async function generateAIQuestionsAllPassages() {
             // Read and validate all textareas
             const passages = [];
@@ -1986,9 +2270,7 @@
             const stepText = document.getElementById('ai-loading-step');
             overlay.classList.remove('hidden');
             
-            let koreanLevelName = currentLevel === 'elementary_junior' ? "초등 저학년(2~4학년)" : 
-                                  currentLevel === 'elementary' ? "초등 고학년(5~6학년)" : "중등부";
-
+            let koreanLevelName = getLevelName();
             stepText.innerText = `전체 ${readingCount}개 지문 통합 AI 분석 시뮬레이션 가동 중...`;
 
             const prompt = `영어 독해 평가 시스템 일괄 출제 요청:
@@ -2000,35 +2282,51 @@ ${passages.map(p => `지문 ID [${p.id}]: "${p.text}"`).join('\n\n')}
 대상 학년 수준: ${koreanLevelName}
 각 지문별 문제 구성 요건:
 각 지문별로 [제목, 요지, 내용일치, 내용불일치, 추론, 대명사지칭, 서술, 배열] 유형 중 가장 어울리는 3가지 유형을 선정해 중복되지 않는 고유한 유형의 문제를 3개씩 출제해 주세요.
-"choices" 배열은 절대로 단일 기호 문자열로 반환하지 말고, 독립된 원소 5개 리스트로 정확히 반환해 주십시오.
-
-지정된 스키마에 따라 최하단의 JSON 객체 규격으로만 데이터(배열)를 정확하게 생성해 주십시오.
-
-반환 데이터 스키마:
-{
-  "reading": [
-    {
-      "passageId": 0,
-      "questions": [
-        {
-          "q": "질문내용",
-          "type": "mcq" | "descriptive" | "unscramble",
-          "questionCategory": "제목" | "요지" | "내용일치" | "내용불일치" | "추론" | "대명사지칭" | "서술" | "배열",
-          "choices": ["선택지1", "선택지2", "선택지3", "선택지4", "선택지5"], // type이 mcq일 때만 필수, 나머지는 []
-          "answer": 1, // mcq일 때 정답 번호 (1-5), 나머지는 null
-          "answerText": "서술형 정답 예시 또는 배열 완성 정답 문장",
-          "shuffledWords": ["word1", "word2", "word3"] // type이 unscramble일 때만 필수, 나머지는 []
-        }
-      ]
-    }
-  ]
-}`;
+"choices" 배열은 절대로 단일 기호 문자열로 반환하지 말고, 독립된 원소 5개 리스트로 정확히 반환해 주십시오.`;
 
             const payload = {
                 contents: [{ parts: [{ text: prompt }] }],
                 systemInstruction: { parts: [{ text: "너는 대치동 및 특목고 영어 내신 대비 최고급 영어 기출 평가지를 설계하는 일류 교수진이야. 오류가 일절 없는 정합성과 정확도를 가진 평가 데이터 세트를 JSON 구조로만 정교하게 출제해 줘." }] },
                 generationConfig: {
-                    responseMimeType: "application/json"
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            reading: {
+                                type: "ARRAY",
+                                items: {
+                                    type: "OBJECT",
+                                    properties: {
+                                        passageId: { type: "INTEGER" },
+                                        questions: {
+                                            type: "ARRAY",
+                                            items: {
+                                                type: "OBJECT",
+                                                properties: {
+                                                    q: { type: "STRING" },
+                                                    type: { type: "STRING", enum: ["mcq", "descriptive", "unscramble"] },
+                                                    questionCategory: { type: "STRING", enum: ["제목", "요지", "내용일치", "내용불일치", "추론", "대명사지칭", "서술", "배열"] },
+                                                    choices: {
+                                                        type: "ARRAY",
+                                                        items: { type: "STRING" }
+                                                    },
+                                                    answer: { type: "INTEGER" },
+                                                    answerText: { type: "STRING" },
+                                                    shuffledWords: {
+                                                        type: "ARRAY",
+                                                        items: { type: "STRING" }
+                                                    }
+                                                },
+                                                required: ["q", "type", "questionCategory", "choices", "answer", "answerText", "shuffledWords"]
+                                            }
+                                        }
+                                    },
+                                    required: ["passageId", "questions"]
+                                }
+                            }
+                        },
+                        required: ["reading"]
+                    }
                 }
             };
 
@@ -2057,6 +2355,8 @@ ${passages.map(p => `지문 ID [${p.id}]: "${p.text}"`).join('\n\n')}
                     console.error(e);
                     openModal("문항 해석 오류", "AI가 생성한 데이터를 포맷팅하는 데 실패했습니다. 다시 한 번 버튼을 눌러 출제해 주세요.");
                 }
+            } else {
+                openModal("AI 통신 실패", "AI 문제 생성기 호출에 실패했습니다. API Key를 확인하시거나 네트워크 상태를 점검한 후 다시 시도해 주세요.");
             }
         }
 
@@ -2074,15 +2374,21 @@ ${passages.map(p => `지문 ID [${p.id}]: "${p.text}"`).join('\n\n')}
 
             while (attempt < maxRetries && !success) {
                 try {
-                    const requestUrl = cleanedCustomKey 
-                        ? `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${cleanedCustomKey}`
-                        : `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-
-                    const response = await fetch(requestUrl, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(payload)
-                    });
+                    let response;
+                    if (cleanedCustomKey) {
+                        response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${cleanedCustomKey}`, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(payload)
+                        });
+                    } else {
+                        // Literal apiKey empty string - guaranteed platform proxy interception
+                        response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(payload)
+                        });
+                    }
                     
                     if (!response.ok) throw new Error("API Request Failed");
                     
@@ -2102,6 +2408,9 @@ ${passages.map(p => `지문 ID [${p.id}]: "${p.text}"`).join('\n\n')}
                     const delay = Math.pow(2, attempt - 1) * 1000;
                     await new Promise(resolve => setTimeout(resolve, delay));
                 }
+            }
+            if (success && statusEl && progressText) {
+                statusEl.innerText = progressText;
             }
             return resultData;
         }
