@@ -57,24 +57,24 @@
 
         /* Junior Mode Custom Design Override */
         .junior-mode {
-            font-size: 13.5px !important;
+            font-size: 14px !important;
         }
         .junior-mode h2 {
             font-family: 'Gaegu', 'Noto Sans KR', sans-serif;
-            font-size: 24px !important;
+            font-size: 26px !important;
             font-weight: 800 !important;
         }
         .junior-mode h3 {
             font-family: 'Gaegu', 'Noto Sans KR', sans-serif;
-            font-size: 16px !important;
+            font-size: 18px !important;
             border-radius: 12px !important;
             padding: 8px 14px !important;
             border: 2px solid #334155 !important;
             background-color: #f8fafc !important;
         }
         .junior-mode p {
-            font-size: 12.5px !important;
-            line-height: 1.8 !important;
+            font-size: 13.5px !important;
+            line-height: 1.9 !important;
         }
         .junior-mode .writing-line {
             height: 2.8rem !important;
@@ -82,7 +82,7 @@
             margin-top: 0.8rem !important;
         }
         .junior-mode .text-slate-900 {
-            font-size: 13.5px !important;
+            font-size: 14.5px !important;
         }
 
         /* Loading Spinner Animation */
@@ -144,7 +144,7 @@
 </head>
 <body class="bg-slate-50 min-h-screen text-slate-800 pb-16 transition-colors duration-300">
 
-    <!-- AI Generation Loading Modal Overlay (No Alerts) -->
+    <!-- AI Generation Loading Modal Overlay -->
     <div id="ai-loading-overlay" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-[200] flex flex-col items-center justify-center hidden">
         <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl max-w-md w-full mx-4 shadow-2xl flex flex-col items-center space-y-5 text-center">
             <div class="relative">
@@ -155,17 +155,17 @@
                 <h3 class="text-white font-bold text-lg flex items-center justify-center gap-2">
                     <span>Gemini AI 시험지 마법 발동 중</span>
                 </h3>
-                <p id="ai-loading-step" class="text-xs text-indigo-300 font-semibold animate-pulse">선택된 수준의 고품질 문제를 출제하는 중...</p>
-                <p class="text-[10px] text-slate-500 leading-relaxed">선택하신 학년 수준에 적절한 명품 독해 지문, 선잇기용 핵심 단어, 번역, 문장배열 데이터를 구글 초거대 인공지능이 완벽하게 실시간 맞춤 구조화하고 있습니다. (약 10초 내외 소요)</p>
+                <p id="ai-loading-step" class="text-xs text-indigo-300 font-semibold animate-pulse">지문 내용을 실시간 분석하여 문항을 출제하는 중...</p>
+                <p class="text-[10px] text-slate-500 leading-relaxed">선택하신 학년 수준에 적절한 명품 독해 지문 문항들을 구글 초거대 인공지능이 완벽하게 실시간 맞춤 구조화하고 있습니다. (약 5~10초 소요)</p>
             </div>
             <!-- Progress Bar -->
-            <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+            <div class="w-full bg-slate-850 h-2 rounded-full overflow-hidden">
                 <div class="bg-indigo-500 h-full rounded-full animate-[shimmer_2s_infinite_linear]" style="width: 85%; background-image: linear-gradient(90deg, #6366f1 0%, #a855f7 50%, #6366f1 100%);"></div>
             </div>
         </div>
     </div>
 
-    <!-- Top Configuration & Navigation Bar (Hidden in Print) -->
+    <!-- Top Navigation Bar (Hidden in Print) -->
     <header class="no-print bg-slate-900 text-white shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-3">
@@ -175,15 +175,15 @@
                 <div>
                     <h1 class="text-md font-bold tracking-tight flex items-center gap-2">
                         <span>YMS 영어 학업성취도 평가 인쇄 시스템</span>
-                        <span class="text-[10px] bg-indigo-500 text-white font-semibold px-2 py-0.5 rounded-full">AI 마스터 v5.0</span>
+                        <span class="text-[10px] bg-indigo-500 text-white font-semibold px-2 py-0.5 rounded-full">AI 마스터 v5.1</span>
                     </h1>
-                    <p id="header-summary" class="text-[11px] text-slate-400">지정된 문항 수에 맞게 실시간 배점이 조정됩니다.</p>
+                    <p id="header-summary" class="text-[11px] text-slate-400 font-medium">지정된 문항 수에 맞게 실시간 배점이 조정됩니다.</p>
                 </div>
             </div>
 
             <!-- Global Action Controls -->
             <div class="flex flex-wrap items-center gap-3">
-                <button onclick="generateAIQuestionsAllPassages()" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold px-3 py-2 rounded-lg text-xs transition flex items-center gap-1.5 shadow-md">
+                <button onclick="generateAIQuestionsAllPassages()" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold px-3.5 py-2 rounded-lg text-xs transition flex items-center gap-1.5 shadow-md">
                     <i class="fa-solid fa-wand-magic-sparkles text-amber-300 animate-pulse"></i>
                     <span>🪄 전체 지문 기반 AI 문제 일괄 생성</span>
                 </button>
@@ -211,7 +211,7 @@
                 </h2>
                 <div class="flex gap-2">
                     <button onclick="generateAIQuestionsAllPassages()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3 py-1.5 rounded transition flex items-center gap-1">
-                        <i class="fa-solid fa-wand-magic-sparkles text-amber-300 animate-pulse"></i> 전체 지문 AI 문제 생성
+                        <i class="fa-solid fa-wand-magic-sparkles text-amber-300"></i> 전체 지문 AI 문제 일괄 출제
                     </button>
                 </div>
             </div>
@@ -291,7 +291,7 @@
                     <button onclick="switchEditorTab('unscramble')" id="tab-unscramble" class="px-3 py-1.5 text-xs font-semibold text-slate-400 hover:text-white rounded-t-md">어순배열</button>
                 </div>
 
-                <!-- Vocab Editor Panel (Optimized for Excel Copy/Paste) -->
+                <!-- Vocab Editor Panel -->
                 <div id="panel-vocab" class="editor-panel space-y-2">
                     <p class="text-xs text-slate-400 leading-relaxed">
                         엑셀(Excel)에서 영어 열과 뜻 열을 각각 복사해서 아래의 해당 입력칸에 따로따로 붙여넣으실 수 있습니다.
@@ -1083,9 +1083,11 @@
             const scorePerTranslation = formatScore(100 / translationCount);
             const scorePerUnscramble = formatScore(100 / unscrambleCount);
 
+            // Dynamically update upper status message
             const summaryText = `단어 ${vocabCount} | 독해 ${readingQuestionsCount} (${readingCount}지문) | 영한해석 ${translationCount} | 어순배열 ${unscrambleCount} (총 ${totalQuestionsCount}문항)`;
             document.getElementById('header-summary').innerText = summaryText;
 
+            // Section labels dynamic scoring print
             document.getElementById('paper-vocab-title-display').innerText = `[I] Vocabulary Evaluation (1 - ${vocabCount})`;
             document.getElementById('paper-vocab-score-display').innerText = `각 ${scorePerVocab}점 [총 100점]`;
             
@@ -1098,6 +1100,7 @@
             document.getElementById('paper-unscramble-title-display').innerText = `[IV] Sentence Unscrambling Practice (${vocabCount + readingQuestionsCount + translationCount + 1} - ${vocabCount + readingQuestionsCount + translationCount + unscrambleCount})`;
             document.getElementById('paper-unscramble-score-display').innerText = `각 ${scorePerUnscramble}점 [총 100점]`;
 
+            // Adjust Editor Tabs text
             document.getElementById('tab-vocab').innerText = `단어 (${vocabCount})`;
             document.getElementById('tab-reading').innerText = `독해 (${readingCount}지문)`;
             document.getElementById('tab-translation').innerText = `영한해석 (${translationCount})`;
@@ -1209,7 +1212,7 @@
                     <div class="flex flex-col md:flex-row md:items-center justify-between text-amber-400 font-bold border-b border-slate-800 pb-1.5 gap-2">
                         <span>[지문 ${pIdx+1}] 독해 본문 및 문제 편집</span>
                         <div class="flex items-center gap-1.5">
-                            <button onclick="generateAIQuestionsForPassage(${pIdx})" class="bg-indigo-650 hover:bg-indigo-600 text-white text-[10px] font-bold px-2 py-1 rounded transition flex items-center gap-1">
+                            <button onclick="generateAIQuestionsForPassage(${pIdx})" class="bg-indigo-650 hover:bg-indigo-600 text-white text-[10px] font-bold px-2.5 py-1 rounded transition flex items-center gap-1.5 shadow-sm">
                                 <i class="fa-solid fa-wand-magic-sparkles text-amber-300"></i> 이 지문으로 AI 문제 출제 (3문항)
                             </button>
                         </div>
@@ -1521,7 +1524,7 @@
 
             activeReading.forEach((pass, pIdx) => {
                 const passBlock = document.createElement('div');
-                passBlock.className = "avoid-break border border-slate-300 p-4 rounded-xl bg-white space-y-3 shadow-sm";
+                passBlock.className = "avoid-break border border-slate-300 p-5 rounded-xl bg-white space-y-4 shadow-sm";
                 
                 let questionsHTML = '';
                 pass.questions.forEach((q, qIdx) => {
@@ -1531,14 +1534,14 @@
                     const isDescriptive = q.type === 'descriptive';
                     
                     const catBadge = q.questionCategory 
-                        ? `<span class="bg-indigo-50 border border-indigo-200 text-indigo-700 text-[9px] font-bold px-1.5 py-0.5 rounded ml-1.5">${q.questionCategory}</span>` 
+                        ? `<span class="bg-indigo-50 border border-indigo-200 text-indigo-700 text-[10px] font-bold px-1.5 py-0.5 rounded ml-1.5">${q.questionCategory}</span>` 
                         : '';
 
                     let questionContentHTML = '';
 
                     if (isDescriptive) {
                         const answerBox = isPaperTeacherMode
-                            ? `<div class="teacher-answer bg-rose-50/50 p-2 border-l-2 border-rose-500 rounded text-[11px] mt-1.5">정답 예시: ${q.answerText || '미작성'}</div>`
+                            ? `<div class="teacher-answer bg-rose-50/50 p-2.5 border-l-2 border-rose-500 rounded text-[12px] mt-1.5">정답 예시: ${q.answerText || '미작성'}</div>`
                             : `<div class="writing-line"></div>`;
                         
                         questionContentHTML = `
@@ -1548,11 +1551,11 @@
                         `;
                     } else if (isUnscramble) {
                         const chipsHTML = (q.shuffledWords || []).map(word => `
-                            <span class="border border-slate-300 bg-slate-50 px-1.5 py-0.5 rounded text-[9.5px] font-sans font-medium text-slate-700">${word}</span>
+                            <span class="border border-slate-300 bg-slate-50 px-2 py-0.5 rounded text-[10.5px] font-sans font-medium text-slate-700">${word}</span>
                         `).join(' ');
 
                         const answerBox = isPaperTeacherMode
-                            ? `<div class="teacher-answer bg-rose-50/50 p-2 border-l-2 border-rose-500 rounded text-[11px] mt-1.5">정답: ${q.answerText || '미작성'}</div>`
+                            ? `<div class="teacher-answer bg-rose-50/50 p-2.5 border-l-2 border-rose-500 rounded text-[12px] mt-1.5">정답: ${q.answerText || '미작성'}</div>`
                             : `<div class="writing-line"></div>`;
 
                         questionContentHTML = `
@@ -1569,22 +1572,22 @@
                         const choices = q.choices || [];
                         choices.forEach((choice, cIdx) => {
                             const isCoreAnswer = (q.answer === (cIdx + 1));
-                            const styleClass = (isPaperTeacherMode && isCoreAnswer) ? 'class="teacher-answer bg-rose-50 px-1.5 rounded border border-rose-200 font-bold"' : '';
+                            const styleClass = (isPaperTeacherMode && isCoreAnswer) ? 'class="teacher-answer bg-rose-50 px-2 rounded border border-rose-200 font-bold"' : '';
                             choicesHTML += `<li ${styleClass}>①②③④⑤`[cIdx] + ` ${choice}</li>`;
                         });
 
-                        const correctMarker = isPaperTeacherMode ? `<span class="teacher-answer text-[11px] ml-1">[정답: ${q.answer}]</span>` : '';
+                        const correctMarker = isPaperTeacherMode ? `<span class="teacher-answer text-[12px] ml-1">[정답: ${q.answer}]</span>` : '';
 
                         questionContentHTML = `
-                            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-1 text-[11px] text-slate-700 mt-1 pl-1 font-sans">
+                            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-[11.5px] text-slate-700 mt-1.5 pl-1 font-sans">
                                 ${choicesHTML}
                             </ul>
                         `;
                     }
 
                     questionsHTML += `
-                        <div class="mt-3.5 first:mt-0">
-                            <p class="font-bold text-slate-900">${overallQNum}. ${q.q || '질문이 없습니다.'} ${catBadge}</p>
+                        <div class="mt-4 first:mt-0 pb-3 border-b border-slate-100 last:border-none last:pb-0">
+                            <p class="font-bold text-slate-900 text-[12.5px]">${overallQNum}. ${q.q || '질문이 없습니다.'} ${catBadge}</p>
                             ${questionContentHTML}
                         </div>
                     `;
@@ -1592,13 +1595,16 @@
 
                 const juniorHeadingDeco = currentLevel === 'elementary_junior' ? '✨ ' : '';
 
+                // NEW STACKED PASSAGE & QUESTIONS LAYOUT: Passage on TOP, Questions BELOW
                 passBlock.innerHTML = `
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
-                        <div class="lg:col-span-5 bg-slate-50 p-4 border border-slate-200 rounded-lg text-[11px] font-serif leading-relaxed italic text-slate-800 relative">
-                            <span class="font-bold text-indigo-900 not-italic block mb-1.5 text-xs"><i class="fa-solid fa-book-open text-indigo-600 mr-1"></i> [${juniorHeadingDeco}지문 ${pIdx+1}]</span>
+                    <div class="space-y-4">
+                        <!-- Passage (Top) -->
+                        <div class="bg-slate-50 p-4 border border-slate-200 rounded-lg text-[12px] font-serif leading-relaxed italic text-slate-800 relative">
+                            <span class="font-bold text-indigo-900 not-italic block mb-2 text-xs"><i class="fa-solid fa-book-open text-indigo-600 mr-1"></i> [${juniorHeadingDeco}지문 ${pIdx+1}]</span>
                             ${pass.passage}
                         </div>
-                        <div class="lg:col-span-7 text-[11px] font-serif flex flex-col justify-between">
+                        <!-- Questions (Bottom) -->
+                        <div class="text-[12px] font-serif space-y-4">
                             ${questionsHTML}
                         </div>
                     </div>
@@ -1809,11 +1815,6 @@
                 return;
             }
 
-            if (!apiKey) {
-                openModal("API Key 설정 필요", "AI 자동 문제 생성 기능을 사용하시려면 먼저 [선생님 문제 편집기] 우측 상단에서 구글 Gemini API Key를 등록해 주세요. (무료 발급 링크를 통해 1분 만에 무료로 생성할 수 있습니다)");
-                return;
-            }
-
             const overlay = document.getElementById('ai-loading-overlay');
             const stepText = document.getElementById('ai-loading-step');
             overlay.classList.remove('hidden');
@@ -1910,11 +1911,6 @@
                 passages.push({ id: i, text: txt });
             }
 
-            if (!apiKey) {
-                openModal("API Key 설정 필요", "AI 자동 문제 생성 기능을 사용하시려면 먼저 [선생님 문제 편집기] 우측 상단에서 구글 Gemini API Key를 등록해 주세요. (무료 발급 링크를 통해 1분 만에 무료로 생성할 수 있습니다)");
-                return;
-            }
-
             const overlay = document.getElementById('ai-loading-overlay');
             const stepText = document.getElementById('ai-loading-step');
             overlay.classList.remove('hidden');
@@ -1992,6 +1988,10 @@ ${passages.map(p => `지문 ID [${p.id}]: "${p.text}"`).join('\n\n')}
 
         // Shared API connection utility with Exponential backoff retries (Up to 5 times)
         async function makeGeminiCallWithRetry(payload, statusEl, progressText) {
+            // Environment automatically secures and binds API calls if set to ""
+            const runtimeApiKey = "";
+            const activeApiKey = localStorage.getItem('monthly_exam_api_key') || runtimeApiKey;
+            
             const maxRetries = 5;
             let attempt = 0;
             let success = false;
@@ -1999,7 +1999,7 @@ ${passages.map(p => `지문 ID [${p.id}]: "${p.text}"`).join('\n\n')}
 
             while (attempt < maxRetries && !success) {
                 try {
-                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${activeApiKey}`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(payload)
